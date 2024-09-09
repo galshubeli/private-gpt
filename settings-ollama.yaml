@@ -26,10 +26,17 @@ vectorstore:
   database: qdrant
 
 graphstore:
-  database: neo4j
+  database: falkordb
 
 qdrant:
   path: local_data/private_gpt/qdrant
+
+falkordb:
+  url: 
+  username: 
+  password: password
+  database: 
+
 
 neo4j:
   url: neo4j://localhost:7687

@@ -115,7 +115,7 @@ class NodeStoreSettings(BaseModel):
 
 
 class GraphStoreSettings(BaseModel):
-    database: Literal["neo4j"]
+    database: Literal["neo4j", "falkordb"]
 
 
 class LlamaCPPSettings(BaseModel):
@@ -379,6 +379,23 @@ class QdrantSettings(BaseModel):
         ),
     )
 
+class FalkorDBSettings(BaseModel):
+    url: str | None = Field(
+        "bolt://localhost:7687",
+        description="URL of the FalkorDB database.",
+    )
+    username: str | None = Field(
+        "falkordb",
+        description="Username to connect to the FalkorDB database.",
+    )
+    password: str | None = Field(
+        "password",
+        description="Password to connect to the FalkorDB database.",
+    )
+    database: str | None = Field(
+        "falkordb",
+        description="Database name to connect to the FalkorDB database.",
+    )
 
 class Neo4jSettings(BaseModel):
     url: str | None = Field(
@@ -418,6 +435,7 @@ class Settings(BaseModel):
     qdrant: QdrantSettings | None = None
     postgres: PostgresSettings | None = None
     neo4j: Neo4jSettings | None = None
+    falkordb: FalkorDBSettings | None = None
 
 
 """

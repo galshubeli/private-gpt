@@ -51,6 +51,27 @@ class GraphStoreComponent:
                         **settings.neo4j.model_dump(exclude_none=True),
                     ),  # TODO
                 )
+            case "falkordb":
+                try:
+                    from llama_index.graph_stores.falkordb import (  # type: ignore
+                        FalkorDBGraphStore,
+                    )
+                except ImportError as e:
+                    raise ImportError(
+                        "FalkorDB dependencies not found, install with `poetry install --extras graph-stores-falkordb`"
+                    ) from e
+
+                if settings.falkordb is None:
+                    raise ValueError(
+                        "FalkorDB settings not found. Please provide settings."
+                    )
+
+                self.graph_store = typing.cast(
+                    FalkorDBGraphStore(
+                        **settings.falkordb.model_dump(exclude_none=True),
+                        decode_responses=True
+                    ),  # TODO
+                )
             case _:
                 # Should be unreachable
                 # The settings validator should have caught this
